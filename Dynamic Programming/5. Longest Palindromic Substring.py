@@ -40,6 +40,38 @@ class Solution:
                 end = right
         return s[start: end + 1]
 
+    def longestPalindrome20210617(self, s: str) -> str:
+        dp = [[-1] * len(s) for _ in range(len(s))]
+        start = 0
+        end = 0
+        for i in range(len(s)):
+            dp[i][i] = True
+        for i in range(len(s) - 2, -1, -1):
+            for j in range(i + 1, len(s)):
+                dp[i][j] = False
+                if s[i] == s[j] and (dp[i + 1][j - 1] == True or dp[i + 1][j - 1] == -1):
+                    dp[i][j] = True
+                    if abs(start - end) < abs(i - j):
+                        start = i
+                        end = j
+        return s[start: end + 1]
+
+    def expandAroundCenter(self, s, left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return left + 1, right - 1
+
+    def longestPalindrome20210617central(self, s: str) -> str:
+        start, end = 0, 0
+        for i in range(len(s)):
+            left1, right1 = self.expandAroundCenter(s, i, i)
+            left2, right2 = self.expandAroundCenter(s, i, i + 1)
+            if right1 - left1 > end - start:
+                start, end = left1, right1
+            if right2 - left2 > end - start:
+                start, end = left2, right2
+        return s[start: end + 1]
 
 solve = Solution()
-print(solve.longestPalindrome2("ababaa"))
+print(solve.longestPalindrome20210617("aa"))

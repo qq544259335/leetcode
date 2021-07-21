@@ -28,5 +28,12 @@ class Solution:
                     cur[j] = cur[j - 1] + cur[j]
         return cur[-1]
 
+    def uniquePath20210622(self, m: int, n: int) -> int:
+        res = [1] * n
+        for i in range(1, m):
+            for j in range(1, n):
+                res[j] += res[j - 1]
+        return res[-1]
+
 solve = Solution()
-print(solve.uniquePaths2(3,2))
+print(solve.uniquePath20210622(3,7))

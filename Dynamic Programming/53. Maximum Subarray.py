@@ -19,6 +19,15 @@ class Solution:
             a, b, c, res = f(nums, 0, len(nums) - 1)
             return res
 
+        def maxSubArray20210618(self, nums: [int]) -> int:
+            cur = -100000
+            res = -100000
+            for num in nums:
+                cur = max(cur + num, num)
+                res = max(cur, res)
+            return res
+
+
 
 solve = Solution()
-print(solve.maxSubArray2([-2,1,-3,4,-1,2,1,-5,4]))
+print(solve.maxSubArray20210618([-2,1,-3,4,-1,2,1,-5,4]))
