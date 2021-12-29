@@ -26,3 +26,16 @@ class Solution:
                 return head
             head = head.next
         return None
+
+    def detectCycle3(self, head: ListNode) -> ListNode:
+        fast, slow = head, head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if fast == slow:
+                slow = head
+                while fast != slow:
+                    fast = fast.next
+                    slow = slow.next
+                return slow
+        return None

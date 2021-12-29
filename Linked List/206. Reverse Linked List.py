@@ -14,6 +14,14 @@ class Solution:
             f = temp
         return s
 
+    def reverListRecursion(self, head: ListNode) -> ListNode:
+        if head is None or head.next is None:
+            return head
+        last = self.reverListRecursion(head.next)
+        head.next.next = head
+        head.next = None
+        return last
+
 node1 = ListNode(1)
 node2 = ListNode(2)
 node3 = ListNode(3)

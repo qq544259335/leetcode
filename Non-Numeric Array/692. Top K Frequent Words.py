@@ -52,7 +52,8 @@ class Solution:
         freq_list[end], freq_list[i] = freq_list[i], freq_list[end]
         words_list[end], words_list[i] = words_list[i], words_list[end]
         return i
-
+# best solution
+# https://leetcode-cn.com/problems/top-k-frequent-elements/solution/leetcode-di-347-hao-wen-ti-qian-k-ge-gao-pin-yuan-/
 
 sol = Solution()
 words = ["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"]
