@@ -1,1 +1,3 @@
-print(float('-inf') > 1)
+a = "24432"
+b = set(a)
+print(b)
