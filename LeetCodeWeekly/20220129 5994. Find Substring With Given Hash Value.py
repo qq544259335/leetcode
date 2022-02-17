@@ -1,0 +1,45 @@
+# class Solution:
+#     def subStrHash(self, s: str, power: int, modulo: int, k: int, hashValue: int) -> str:
+#         if len(s) == 1:
+#             return s
+#         i = 0
+#         temp = 0
+#         for j in range(i, i + k):
+#             temp += (ord(s[j]) - ord('a') + 1) * (power ** (j - i))
+#         print(s[i:i + k], temp)
+#         if temp % modulo == hashValue:
+#             return s[i:i + k]
+#         i += 1
+#         while i + k - 1 < len(s):
+#             temp -= (ord(s[i - 1]) - ord('a') + 1)
+#             temp //= power
+#             temp += (ord(s[i + k - 1]) - ord('a') + 1) * power ** (k - 1)
+#             print(s[i:i+k], temp)
+#             if temp % modulo == hashValue:
+#                 return s[i:i + k]
+#             i += 1
+
+class Solution:
+    def subStrHash(self, s: str, power: int, modulo: int, k: int, hashValue: int) -> str:
+        k_table = [1] * k
+        for i in range(1, k):
+            k_table[i] = (k_table[i - 1] * (power % modulo)) % modulo
+        i = 0
+        while i + k - 1 < len(s):
+            temp = 0
+            for j in range(i, i + k):
+                temp += ((ord(s[j]) - ord('a') + 1) * k_table[j - i]) % modulo
+                temp = temp % modulo
+            if temp == hashValue:
+                return s[i:i + k]
+            i += 1
+
+
+s = "qewhvotxijxctihmemjtbxhitjrldvvqovzsrokchwounwacwsnxbkrlkefudxozdduwchfeugcjrlvhctudwdmnbokyfyficbgobrsitapxgizzcqgpyhlytptzfhokmhopbmpqdgwrwunwddssxcbazweyrebkglejntgnpeyfwibtdzsdhhwhperjaouqnfxvjufchbogtreiyyamocytgiszaunnjgoikxjxkwkwzhupqfktskkzvmmswipcsxpiuyhtodrpljbkwwvbehkdrvqurzsnlxfzclmwmpabkhlnwomoigplbiwzqpxeugbclwonxkhvlgtgpuuthkkpkbabmuttmudlypxcvgudcuunaqsgunilwrczpeatvdyxmlphzjltnxyfccjxmblvciytomslsrpidpygwbguxzzulqyhwuojeayaonqhaqjnbecpipzyobhevpuzadjzxfspqeuhfqzkqikbamkajzwwplopqfkrhilhvjffxowbfgtccpvuyrtbarehrwuvzoyxcuzpzhramjsedksnolzomnibrayztwmmoyvouavuqezzerxxswnhhrveughavtjevhgvvwtucubqlbdsnhemwpebroxidpgkbnxkewiovoqwicpgnaqdapbeguzgrolndykcoacbyrnyqgmzobnkllslzefwfhqqcfkfkoiftcfgumsvoavjbcglgeriwechchmoezsayqymazteqpwxikjszfwplnihvuvyyvjcahvpylfuiffutplkvwkyrgzraegboubdqtrtjijisgjhaqkgbbmvzzlkdruxogczwagmxftsesqtwxxplnaiowmpzxukkkgpvgejimfffhzulozmyukbcxklluvfgnhrbvuldiwavzqjgfhtfweyogsznrocusnuuttypwkuefjahearxgymkaeiljvnmxdrypckrzyavqxinwqcghrpixbzpmalihhcliqabjqwfwcgmewrhtafkqvvuwwvfuccyswclhxfbzgdtvnphwqnewehtuqsbaanzmjewyzwecjxnamadqsstqjjedzqiobhzjngszprkzrjyxqnwrgxroktpvumjuootvllnelbpacqjzqetehqtvvawaqslxwkbkigdlbvvqefnzsszdtdkdtgcuebyanikjlultyofyahhtcmvrdyvlevlkooefrgrgaehwnqnlyqpvovkmfkglefrmqeovqcphgzzdaflkoeecoiossmmcnltdlytqvbuurgtjolmwllvraztzgqjaqocudykyvzoyqqalccguysiuzggotypxajxcwwqekvudlasbwppzitnhuigebrpawyziieepsrclxuhzacsliwmijdzpdpmkfpvybeqkcquixtwcqiuspehcdoyuhfwcmcctdpebgibenfenxlwejxuoabypwwnvjpurzsgmloregohjmxlobbqkxntwidoeabvkjjotbjxixosmcdpcrnltvzuhnxnrzhxxzpzbtqdulqrhqfjlkwgtyzqonwxveehwrxbrjfijszzvxwxooetexntoprvhfkifoqkqilgkcbbuhirjmqkgkqhbqysouadvuodczczgfbkgpkpwixnxseeefnskbpcbmwkszlnvmwgemgyycthztibjrvgtarumxplvcwilbijxssybggrbigwpuvjiiadprsvsisdlwdtlxoyofnszyohilngtxogwiisewytobrotskefuykmlgpyyhjpkhigsewfuoptcnscblbldixxaoexlqgplrvqruyqfgcnqwzjxgrzfuxpmiejertazgxzcrejtirdtsonaqmtgeyindijhbkujsdlcikvvitwhqsrhfdwqrmkgpaybsgvoqsnssznhmqxpdcwzyrqjvklotwfoqqotxoefzdntzvdcjxcbrzxtkkaqehfodvandtdipjlnrbmxwyprhgmxuucftovdvwkihvswutawuvucepnvgxayswzqtykrdszpivmlxmylmjedrxzyubtuinvaltzfbcwjfiztbikefwbhajaatygotbbvtvvdbjbkritjbrnillvpgjxjlapkwwgieodalhtfftiqziaqamvpbymgyrknpeqoyzsvpiparhvmglejtkijgczysejnoyqqkzjwyooynxmtniyzuryyddjlqovdpwsertmqhdhffuontnqdmpvfuifkonlipowezacfchcpormwvgfzvhkvxczwoumkcnlstmbfyrbqgjwpzmhgeqljynszhyegzdgcpzzqouzbwqhxudkznrixssamcacjvzqlrfswrtaeotsqgxzgfvcyoanaymfpegqhtghrzwtgtsqrcqjqllazebuairlhupjbmqesizjwyzxnypopmcluweuuotnegrwiiqffkqwjpnvbuallzukgycjfhcyyqijtgfivpywlwmuazpdkiayjgktrstlpvemedqhmzicrtedvamnoemeejcceosivedbduruomdfcxfnxskriyjsznrwiyrlhbhspuepgpygpgijnumrakoizeddaoennnssuushtaprrwcmchyywgwyqzgxehipxdwrdfhtycjcvvufpaxebhjewgtfdzykozwhykbjusgeqoymbbgjvvznvhexlcwcglgtqnnrcyypcagngazzvpppxittkjerprwipjfswxzzygmxvvhcmekvtxtmgdcpfalcnncmfxqjpzsgtkvqpmxepsedgftdfhaeyqnigpmxqecwkxoavvxqttwpcecvftcwpzhtwkzguaecelrwttbhiripzlxewpwejxxrwfxqfpjytqojgyirlcrdewrpbqxctxuikgpzoxhgkvwdmadijmqmyegqlzodpzonhdhcacturzpcrlsssecpmfyxpuzrwtrvjlllykdrktegvilfjpnavxdrpsrwsmkcgsdvvhvkhczivgyptshnvisrwcltdhdfwufcjysbqrgrtqazsmoosasmgakkjozfknuwxqlzmkgjaizbrqakoibunekuyomzvfddwazozbflaqyphwmchicxmuyhmbekqcnqdcqnwbateyskxvkwcrybxisdyygqltguupwpeoqdrpvuioktuynkqppgkzujnogxqimzhzvpjspjrwmyeqreixuduipksqzvrsmnxnqvyecwtfsvdbpcybdecjdjuoxiroxnsnkgriwjbutqriowzvjywjzhcpqfbxokrmqhzdfcnejwdsevqantcflqlhlvydjjcfmpukwluskwnsqoxtxnhhuvofyhpwbzpamxgayshdzsjryzvxoxzpdeobqiyusbujadugxxowkhvpgwffeyvxqwahugitkjrhfhbimzvdlmrbygjshazxpzunfckenalaipidnronhypkfxzjtbmnwqqqbhpswpdalggwwrhgrmgwywsseevjjkaqkkehrplfzhshwhgpsiqfalbdohwdxfooxlqqfsovlmupvjyhcdxucgejxbubyasqaictoqjyabiunweipiekheiqobrwrmzezyswatdpxdcieyvguikxewoekhtkhqybynojncujmdaiulkfpwzqlnpvdtbrsvsbcddagtavjulxwpstlqtplqtustzjzoexrisclwldyoyamwwpjzyvmbrwdjyiubzysvxnnrhupflqxqvqjnqbonubjmfeccoijovxfzpouyukrccsrkvendggkdgonldstmedihwirvbkgonuojaboufkbqmolhgfewsdlfvpilgzljtrgfkqzmxdxysfmkvvtcjuyasqmzuopxbasgaabpagkmdfkyuzktpbcrttgtwtatcksttojwvnelgjjffaijnakabtaendzvmlkjtrsekigopnyrugksfluxkyojayopfacnywgwypzndwmsxhlmpusirgawkeivjbgkiyanaigjtixlpdxblwkapqauircaibydbrbfeqcynsduabybmbvgglqozuzajqkjervqnqmfvsqzzbrgotwxcgyqlnvjqacfjvtmnsrdflstniwzsvikwihyjflhpjewczhxyiedtdwvyxhwngeqgvlasoyltduzixkxgqkonxurpztgwktfwbrsxwowtrecqeyguiobttcvthrlascxdgccwldxpnseikrobujpuplbpoystfkjanjzyzjyjkndhtpgqdrptwubjjlnihfzjoztjljtiiparfkjnacruzxkevtwrzrxnpcfkpbibebonugichzhifawdckvqmwgajyhybjlvftmrcmagvhviudnphbmattgkrapuiwhzizpotbgbxkbzqcnfnytuuuwydldkvbhxvghvzrumzwzmcuplsaoyeyiilzcivupvwzytsfinyixqviokxpdszqsdxmrxwesyzbboxkihygkjlzqritosouwkhbaykqqyywcgproaspjyftkuyeyajgdmladuvtijqnwjqvnwcmdxrqrptibilmvmozpxdxmcqtknxkfytsvlvexmpsbrnyajmroyrclkjkskndypmtjgkycwneurltisbouakcaqcnijlgnduaqrftgnocdvsdahbtyybcaizbzkccdtmolfpzdbkmtdjldkkztmfehadmugxiyyrvexdcchkkokhjnikzayzjyafanmazquhwhcnnncszzrycwalbkszmvoogzynqmhybqcibofulxxwxpavmnxnlxixqtljmzimavcfcnfqfcemmtmssadrxwbptvxhrpjvyikypogvwgxpgqygvufapplbwcrmphcnxtnkwezhzkjgxykhcpdehixdxhctsxkxbbtlwsmmiuzplzyxdymhruxabzwvffsqwriujszwxythotbamldolarqsjeyndlvmaddiwsjwjcelwfnmpfpuamjhoxmhquleeuewonatdkslawenazzirrwxvytcbaqjuipzcittqkhsxppednfxnlcumjksxwndtpvnwcrlldvprqpmmtremknkiemplxdjnyuofxduqifefdedtxyuxgqvwlvzegmiyifmemyrkfnizkmrzbcgsmwgwbjzjaqvzzgnmpusgtlxpydzohpmepdpcrouwjhhcuyasipzuoabiiixpzmfskommqhheqlnyhxwiwmkeqotyiixsswvpqdjqncqndmlofewyqruvbqoqdrlzbnrvphsomrpyvhxhimggagaqfyaxomeqqlidzxagpuuewaxbuafycvomlyxjdbammxourcoyvgvldtyhgfqjdmqpnldmcdyjvcuelfmnsefhlfzimgbwhuleriejkoecjlkycdwwbjcclucqalskyzeimoamjnsbrlajnsjcuwwmejpldtpafeuehkztrysvezxjturogmtbcrviixjlthrpajesoaalhoztiararvljqztouotvmilpxtqntbfznmffawnpphzrdsoaetdjeikapgfamhjowtlwndntsrtpnirrxlsrdimnqqjvowowarmxhqqaqywqkesiwqotfrhlbofotzenjddglbdwaxffwipmzzbkpdclencmetifwsogjrpdhlginuldfxulexgljynrinbdctbvosdwqtflxhnizejkzpaojoofxpgijycnzbjypjkjnjdbywvfxafgxcnqhxmimmfsnlsfqlqiiwlzyfnbvkhgzmeoalqyoidmuzenelpfqzksfggmebewnxhfpmbcjguhgnmeetlbnstonpvkbtxkbtefmhkklsqhdrbuupqnnufdxzkiqeggykixxswabsftobycxpiothsagyddlbdqjpfzirnxurgonzowoitowvucqrzcxsyzyqicrvgfmfznakqmtxmgmsltgjlrglatxviwxvjzyhrstshljhcsoegzaiuvvmhvqskfrgvzeycgxnxatannwxalayyekdshyhqphprzcwaeiegvqbdfgyryonqkfnmfohdfbmdqxwbngwljpuxppqaljxcwzujzffyaqdiqlvzzalxfpeghftzmquqtzxyevbjrglucchmrnezjasicdnwgsnjlnubcizcyjxwxkvtbgovjsohtjfdfazyplhtusdiccnnoqcrifsakclhrbuokivielxxttjzblecdsgwfofvnnhixtuzoutgwkzjctvluzvvbhvzcrwqgmdpytalfiyvixewxetyqrptmeapkapwnpiopcyjvanumxwcdgxjroywvslcwcqchemzmhfnvkaopyeankzaouduyetiowhdfgjyjivxpenfgtxzbrdhayuyqykgqwcewsqnaiuezalcjgnpslguefwvsadctchatvfsjistemqllniihsoacjqwgpctziphsybaxhazdslpjvvpullcqouyalcehvapsplyfkzhyuniqxhfgvhxafovuuoiqfgovqsxelghpkvdfrgqhuwzxormatkivzbqvqcyviinycymmnnthdenwjqzzrkjmvvkoxhseeskapndecgbggsoglwzvtgkvornfpcfpvpjidrskaozwebgyqpekhdxemkvrogzxsweafkplnaapffhulcwilcfeqreciqekunqqiegbbbscpdlcvlcqfrnfhvqqwezssdezndidmmxsfcgdmgesmxxisaoiwzksxgamkzmycopiqmoxavesekctiwnpjbfrxbiqihgtvhlptgzsynjnymczfbemopcblmeozbjtmmlcvavkxthycigktuxixlxvrlholkuhijlmoqzblmhglvmcxpdkimluhwdbnqatxiqdanavutsnvoxthztpxanoptezjtwxxzgbhdvlkyvugjjawvdutzrtnbzzqboiwucpvrcfmkogbmdtbiomykkvrwjquhwohfurzytubnnfvnebxd"
+
+power = 38894
+modulo = 73463
+k = 3098
+hashValue = 3671
+test = Solution()
+print(test.subStrHash(s, power, modulo, k, hashValue))
