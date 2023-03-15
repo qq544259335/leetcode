@@ -1,2 +1,2 @@
-for i in range(8):
-    print(i % 7)
+a= ["1", "2", "3"]
+print(int("".join(a)))

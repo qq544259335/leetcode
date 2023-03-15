@@ -4,16 +4,17 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         p1, p2 = headA, headB
         while p1 != p2:
-            if p1:
-                p1 = p1.next
-            else:
+            if not p1:
                 p1 = headB
-            if p2:
-                p2 = p2.next
             else:
+                p1 = p1.next
+            if not p2:
                 p2 = headA
+            else:
+                p2 = p2.next
         return p1

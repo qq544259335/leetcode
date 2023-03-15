@@ -32,9 +32,9 @@ class Solution:
         while fast and fast.next:
             fast = fast.next.next
             slow = slow.next
-            if fast == slow:
+            if slow == fast:
                 slow = head
-                while fast != slow:
+                while slow != fast:
                     fast = fast.next
                     slow = slow.next
                 return slow

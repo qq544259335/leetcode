@@ -6,12 +6,10 @@ for _ in range(int(input())):
         print("YES")
         print(n,0,0)
     else:
-        end = (n + x)//4 + 1
-        start = x // 3 +1
         flag = False
-        for a in (start,end):
+        for a in range(n):
             b = 3 * a - x
-            if a + b <= n:
+            if b >= 0 and a + b <= n and 3*a - b == x:
                 print("YES")
                 print(a,b,n -a -b)
                 flag = True

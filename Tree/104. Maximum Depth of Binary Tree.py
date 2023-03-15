@@ -7,35 +7,25 @@ class TreeNode:
 
 
 class Solution:
+    res = 0
+    depth = 0
+
     def maxDepth(self, root: TreeNode) -> int:
-        def dfs(root: TreeNode, depth):
-            if root is None:
-                return depth
-            d1 = dfs(root.left, depth + 1)
-            d2 = dfs(root.right, depth + 1)
-            return max(d1, d2)
+        def traverse(node: TreeNode):
+            if not node:
+                self.res = max(self.res, self.depth)
+                return
+            self.depth += 1
+            traverse(node.left)
+            traverse(node.right)
+            self.depth -= 1
 
-        return dfs(root, 0)
+        traverse(root)
+        return self.res
 
-    def maxDepth2(self, root: TreeNode) -> int:
-        if root is None:
-            return 0
-        height1 = self.maxDepth2(root.left)
-        height2 = self.maxDepth2(root.right)
-        return max(height1,height2) + 1
-
-    def maxDepthDFS(self, root: TreeNode) -> int:
-        if root is None:
-            return 0
-        queue = [root]
-        res = 0
-        while queue:
-            length = len(queue)
-            for i in range(length):
-                node = queue.pop(0)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            res += 1
-        return res
+    def maxDepthRecursion(self, root: TreeNode) -> int:
+        def recursion(node: TreeNode):
+            if not node:
+                return 0
+            return max(recursion(node.left), recursion(node.right)) + 1
+        return recursion(root)
